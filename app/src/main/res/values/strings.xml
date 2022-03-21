@@ -3,4 +3,12 @@
     <string name="title_statistic">Statistic</string>
     <string name="title_calendar">Calendar</string>
     <string name="title_sets">Sets</string>
+
+    <string-array name="sets_array">
+        <item>42</item>
+        <item>4.003</item>
+        <item>russkiy flax</item>
+        <item>Sybirea's gold</item>
+        <item>tom shelby)))</item>
+    </string-array>
 </resources>
