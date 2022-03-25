@@ -10,7 +10,7 @@ class SetsFragment : Fragment(R.layout.fragment_sets) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val data = context.resources.getStringArray(R.array.sets_array)
-        val adapter = SetsAdapter(data)
+        val data = context?.resources?.getStringArray(R.array.sets_array)
+        val adapter = data?.let { SetsAdapter(it) }
     }
 }

@@ -10,12 +10,10 @@ import com.example.fitnessapplication.R
 class SetsAdapter(val dataList: Array<String>) : RecyclerView.Adapter<SetsAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView
+        val textView: TextView = view.findViewById(R.id.textView)
 
         fun bind(word: String) {
-            init {
-                textView.text = word
-            }
+            textView.text = word
         }
     }
 
