@@ -8,7 +8,12 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.fitnessapplication.R
 import com.example.fitnessapplication.databinding.FragmentSetsBinding
+import com.example.fitnessapplication.sets.SetsAdapter
+import java.util.ArrayList
 
 class SetsFragment : Fragment() {
 
@@ -35,6 +40,21 @@ class SetsFragment : Fragment() {
 //            textView.text = it
 //        })
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val dataList = ArrayList<String>()
+        dataList.add("Russkiy")
+        dataList.add("rap")
+        dataList.add("kruto")
+        dataList.add("tem bolee")
+        dataList.add("XAN ZAMAY")
+        val adapter = SetsAdapter(dataList)
+        val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = adapter
     }
 
     override fun onDestroyView() {
