@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.fitnessapplication.R
 import com.example.fitnessapplication.databinding.CalendarDayBinding
 import com.example.fitnessapplication.databinding.FragmentCalendarBinding
 import com.kizitonwose.calendarview.model.CalendarDay
@@ -80,11 +81,11 @@ class CalendarFragment : Fragment() {
                 textView.text = day.date.dayOfMonth.toString()
 
                 if (day.owner == DayOwner.THIS_MONTH) {
-                    textView.setTextColorRes(R.color.example_5_text_grey)
-                    layout.setBackgroundResource(if (selectedDate == day.date) R.drawable.example_5_selected_bg else 0)
+                    textView.setTextColorRes(R.color.grey)
+                    layout.setBackgroundResource(if (selectedDate == day.date) R.drawable.calendar_selected_bg else 0)
 
                 } else {
-                    textView.setTextColorRes(R.color.example_5_text_grey_light)
+                    textView.setTextColorRes(R.color.grey_light)
                     layout.background = null
                 }
             }
