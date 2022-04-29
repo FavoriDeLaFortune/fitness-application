@@ -29,7 +29,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_сhevron_left" />
+                app:srcCompat="@drawable/ic_chevron_left" />
 
             <TextView
                 android:id="@+id/monthYearText"
@@ -51,7 +51,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_сhevron_right" />
+                app:srcCompat="@drawable/ic_chevron_right" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
