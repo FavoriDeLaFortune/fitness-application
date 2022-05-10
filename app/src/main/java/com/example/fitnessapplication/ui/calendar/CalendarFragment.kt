@@ -1,21 +1,30 @@
 package com.example.fitnessapplication.ui.calendar
 
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.fitnessapplication.R
 import com.example.fitnessapplication.databinding.CalendarDayBinding
+import com.example.fitnessapplication.databinding.CalendarHeaderBinding
 import com.example.fitnessapplication.databinding.FragmentCalendarBinding
 import com.kizitonwose.calendarview.model.CalendarDay
+import com.kizitonwose.calendarview.model.CalendarMonth
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
+import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
+import com.kizitonwose.calendarview.utils.next
+import com.kizitonwose.calendarview.utils.previous
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
 import java.time.temporal.WeekFields
 import java.util.*
 
@@ -88,6 +97,49 @@ class CalendarFragment : Fragment() {
                     textView.setTextColorRes(R.color.grey_light)
                     layout.background = null
                 }
+            }
+        }
+        class MonthViewContainer(view: View) : ViewContainer(view) {
+            val legendLayout = CalendarHeaderBinding.bind(view).legendLayout.root
+        }
+        binding.calendarView.monthHeaderBinder = object :
+            MonthHeaderFooterBinder<MonthViewContainer> {
+            override fun create(view: View) = MonthViewContainer(view)
+            override fun bind(container: MonthViewContainer, month: CalendarMonth) {
+                // Setup each header day text if we have not done that already.
+                if (container.legendLayout.tag == null) {
+                    container.legendLayout.tag = month.yearMonth
+                    container.legendLayout.children.map { it as TextView }.forEachIndexed { index, tv ->
+                        tv.text = daysOfWeek[index].getDisplayName(TextStyle.SHORT, Locale.ENGLISH)
+                            .toUpperCase(Locale.ENGLISH)
+                        tv.setTextColorRes(R.color.grey)
+                        tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
+                    }
+                    month.yearMonth
+                }
+            }
+        }
+
+        binding.calendarView.monthScrollListener = { month ->
+            val title = "${monthTitleFormatter.format(month.yearMonth)} ${month.yearMonth.year}"
+            binding.monthYearText.text = title
+
+            selectedDate?.let {
+                // Clear selection if we scroll to a new month.
+                selectedDate = null
+                binding.calendarView.notifyDateChanged(it)
+            }
+        }
+
+        binding.nextMonthImage.setOnClickListener {
+            binding.calendarView.findFirstVisibleMonth()?.let {
+                binding.calendarView.smoothScrollToMonth(it.yearMonth.next)
+            }
+        }
+
+        binding.previousMonthImage.setOnClickListener {
+            binding.calendarView.findFirstVisibleMonth()?.let {
+                binding.calendarView.smoothScrollToMonth(it.yearMonth.previous)
             }
         }
     }
