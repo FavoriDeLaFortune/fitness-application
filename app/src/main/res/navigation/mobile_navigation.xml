@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_statistic">
+    app:startDestination="@id/navigation_sets">
 
     <fragment
         android:id="@+id/navigation_statistic"
@@ -20,5 +20,13 @@
     <fragment
         android:id="@+id/navigation_sets"
         android:name="com.example.fitnessapplication.ui.sets.SetsFragment"
-        android:label="@string/title_sets" />
+        android:label="@string/title_sets" >
+        <action
+            android:id="@+id/action_navigation_sets_to_setAddFragment"
+            app:destination="@id/setAddFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/setAddFragment"
+        android:name="com.example.fitnessapplication.ui.sets.SetAddFragment"
+        android:label="SetAddFragment" />
 </navigation>
