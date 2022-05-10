@@ -35,10 +35,6 @@ class SetsFragment : Fragment() {
         _binding = FragmentSetsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        //val textView: TextView = binding.textNotifications
-//        setsViewModel.text.observe(viewLifecycleOwner, Observer {
-//            textView.text = it
-//        })
         return root
     }
 
@@ -55,6 +51,11 @@ class SetsFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
+
+        val fab: View = view.findViewById(R.id.fab)
+        fab.setOnClickListener {
+
+        }
     }
 
     override fun onDestroyView() {
