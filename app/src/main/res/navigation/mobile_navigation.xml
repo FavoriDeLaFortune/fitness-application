@@ -20,13 +20,15 @@
     <fragment
         android:id="@+id/navigation_sets"
         android:name="com.example.fitnessapplication.ui.sets.SetsFragment"
-        android:label="@string/title_sets" >
+        android:label="@string/title_sets"
+        tools:layout="@layout/fragment_sets">
         <action
-            android:id="@+id/action_navigation_sets_to_setAddFragment"
-            app:destination="@id/setAddFragment" />
+            android:id="@+id/action_navigation_sets_to_navigation_set_add"
+            app:destination="@id/navigation_set_add" />
     </fragment>
     <fragment
-        android:id="@+id/setAddFragment"
+        android:id="@+id/navigation_set_add"
         android:name="com.example.fitnessapplication.ui.sets.SetAddFragment"
-        android:label="SetAddFragment" />
+        android:label="SetAdd"
+        tools:layout="@layout/set_add"/>
 </navigation>
