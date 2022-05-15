@@ -32,7 +32,7 @@ class SetAddFragment : Fragment(R.layout.set_add) {
             btn.setOnClickListener() {
                 if (name.editText?.text.toString() != "" && description.editText?.text.toString() != ""
                     && time.editText?.text.toString() != "" && calories.editText?.text.toString() != ""
-                    && isCorrectTime(time.editText?.text.toString()) && calories.editText?.length()!! >= 3) {
+                    && isCorrectTime(time.editText?.text.toString()) && isCorrectCalories(calories.editText?.text.toString())) {
                     dataModel.apply {
                         nameData.value = name.editText?.text.toString()
                         descriptionData.value = description.editText?.text.toString()
@@ -45,7 +45,7 @@ class SetAddFragment : Fragment(R.layout.set_add) {
                     if (name.editText?.text.toString() == "" || description.editText?.text.toString() == ""
                         || time.editText?.text.toString() == "" || calories.editText?.text.toString() == "") {
                         Toast.makeText(context, "Fill all fields!", Toast.LENGTH_LONG).show();
-                    } else if (calories.editText?.length()!! < 3) {
+                    } else if (!isCorrectCalories(calories.editText?.text.toString())) {
                         calories.editText!!.setText("")
                         Toast.makeText(context, "Uncorrect calories range!", Toast.LENGTH_LONG).show();
                     } else {
@@ -86,6 +86,16 @@ class SetAddFragment : Fragment(R.layout.set_add) {
         }
         if (time[0] >= '7' || time[3] >= '6' || time[0] == '6' && (time[1] > '0' || time[3] > '0' ||
                     time[4] > '0')) {
+            return false
+        }
+        return true
+    }
+
+    fun isCorrectCalories(calories: String) : Boolean {
+        if (calories.length < 3) {
+            return false
+        }
+        if (calories[0] == '0') {
             return false
         }
         return true
