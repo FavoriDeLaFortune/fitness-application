@@ -25,14 +25,13 @@ class SetsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         setsViewModel =
-            ViewModelProvider(this).get(SetsViewModel::class.java)
+            ViewModelProvider(this)[SetsViewModel::class.java]
 
         _binding = FragmentSetsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

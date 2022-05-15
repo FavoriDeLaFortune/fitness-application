@@ -7,10 +7,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fitnessapplication.R
 
-class SetsAdapter(val dataList: ArrayList<String>) : RecyclerView.Adapter<SetsAdapter.ViewHolder>() {
+class SetsAdapter(private val dataList: ArrayList<String>) : RecyclerView.Adapter<SetsAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView = view.findViewById(R.id.textView)
+        private val textView: TextView = view.findViewById(R.id.textView)
 
         fun bind(word: String) {
             textView.text = word

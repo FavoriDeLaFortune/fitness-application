@@ -5,20 +5,13 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.text.set
-import androidx.core.view.get
-import androidx.core.view.isEmpty
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.fitnessapplication.R
 import com.example.fitnessapplication.databinding.SetAddBinding
-import com.example.fitnessapplication.ui.calendar.setTextColorRes
 
 class SetAddFragment : Fragment(R.layout.set_add) {
     private lateinit var binding: SetAddBinding
@@ -29,7 +22,7 @@ class SetAddFragment : Fragment(R.layout.set_add) {
         binding = SetAddBinding.bind(view)
 
         binding.apply {
-            btn.setOnClickListener() {
+            btn.setOnClickListener {
                 if (name.editText?.text.toString() != "" && description.editText?.text.toString() != ""
                     && time.editText?.text.toString() != "" && calories.editText?.text.toString() != ""
                     && isCorrectTime(time.editText?.text.toString()) && isCorrectCalories(calories.editText?.text.toString())) {
@@ -44,13 +37,13 @@ class SetAddFragment : Fragment(R.layout.set_add) {
                 } else {
                     if (name.editText?.text.toString() == "" || description.editText?.text.toString() == ""
                         || time.editText?.text.toString() == "" || calories.editText?.text.toString() == "") {
-                        Toast.makeText(context, "Fill all fields!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Fill all fields!", Toast.LENGTH_LONG).show()
                     } else if (!isCorrectCalories(calories.editText?.text.toString())) {
                         calories.editText!!.setText("")
-                        Toast.makeText(context, "Uncorrect calories range!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Uncorrect calories range!", Toast.LENGTH_LONG).show()
                     } else {
                         time.editText?.setText("")
-                        Toast.makeText(context, "Uncorrect time format!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Uncorrect time format!", Toast.LENGTH_LONG).show()
                     }
                 }
             }
@@ -80,7 +73,7 @@ class SetAddFragment : Fragment(R.layout.set_add) {
         }
     }
 
-    fun isCorrectTime(time: String) : Boolean {
+    private fun isCorrectTime(time: String) : Boolean {
         if (time.length < 5) {
             return false
         }
@@ -91,7 +84,7 @@ class SetAddFragment : Fragment(R.layout.set_add) {
         return true
     }
 
-    fun isCorrectCalories(calories: String) : Boolean {
+    private fun isCorrectCalories(calories: String) : Boolean {
         if (calories.length < 3) {
             return false
         }

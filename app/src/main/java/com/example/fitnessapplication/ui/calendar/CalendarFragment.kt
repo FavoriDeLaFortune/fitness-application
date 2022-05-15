@@ -25,7 +25,6 @@ import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
-import java.time.temporal.WeekFields
 import java.util.*
 
 
@@ -41,13 +40,12 @@ class CalendarFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         calendarViewModel =
-            ViewModelProvider(this).get(CalendarViewModel::class.java)
+            ViewModelProvider(this)[CalendarViewModel::class.java]
 
         _binding = FragmentCalendarBinding.inflate(inflater, container, false)
-        val root: View = _binding!!.root
-        return root
+        return _binding!!.root
     }
 
     private lateinit var binding: FragmentCalendarBinding
@@ -111,7 +109,7 @@ class CalendarFragment : Fragment() {
                     container.legendLayout.tag = month.yearMonth
                     container.legendLayout.children.map { it as TextView }.forEachIndexed { index, tv ->
                         tv.text = daysOfWeek[index].getDisplayName(TextStyle.SHORT, Locale.ENGLISH)
-                            .toUpperCase(Locale.ENGLISH)
+                            .uppercase(Locale.ENGLISH)
                         tv.setTextColorRes(R.color.grey)
                         tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
                     }

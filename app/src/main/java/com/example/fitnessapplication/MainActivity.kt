@@ -1,17 +1,13 @@
 package com.example.fitnessapplication
 
 import android.os.Bundle
-import android.view.View
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.fitnessapplication.databinding.ActivityMainBinding
-import com.example.fitnessapplication.ui.sets.SetAddFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
