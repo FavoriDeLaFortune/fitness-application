@@ -15,7 +15,7 @@
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.Material3.TextInputEditText.FilledBox"
             app:boxBackgroundColor="@color/white"
-            android:id="@+id/set_name"
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
