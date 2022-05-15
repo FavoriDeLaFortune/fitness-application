@@ -12,75 +12,94 @@
         android:layout_height="wrap_content"
         tools:context=".ui.sets.SetAddFragment">
 
-        <EditText
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputEditText.FilledBox"
+            app:boxBackgroundColor="@color/white"
+            android:id="@+id/set_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="SetName"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="8dp"
-            android:maxEms="10"/>
+            android:layout_marginTop="16dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="10"
+            android:maxLength="10" >
 
-        <LinearLayout
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="SetName"
+                android:gravity="center_horizontal"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/description"
-            android:layout_width="wrap_content"
+            app:boxBackgroundColor="@color/white"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:maxLines="1"
+            app:counterEnabled="true"
+            app:counterMaxLength="150"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/set_name"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginTop="64dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Description:" />
-            <EditText
-                android:layout_width="340dp"
-                android:layout_height="wrap_content"
-                android:hint="Something what you should do during your training"
-                android:maxLines="1"/>
-        </LinearLayout>
 
-        <LinearLayout
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Description"
+                android:maxLength="150"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/time"
-            android:layout_width="wrap_content"
+            app:boxBackgroundColor="@color/white"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:maxLines="1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/description"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="64dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Time: " />
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Time of Set"
-                android:inputType="number"/>
-        </LinearLayout>
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            app:helperText="Format MM:SS">
 
-        <LinearLayout
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Time"
+                android:inputType="number"
+                android:maxLength="4"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/calories"
-            android:layout_width="wrap_content"
+            app:boxBackgroundColor="@color/white"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:maxLines="1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/time"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="64dp">
-            <TextView
-                android:layout_width="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="32dp"
+            app:helperText="Range [100:9999]">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Calories: " />
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Calories burned after set"
-                android:inputType="number"/>
-        </LinearLayout>
+                android:hint="Calories"
+                android:inputType="number"
+                android:maxLength="4"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btn"
@@ -91,7 +110,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/calories"
-            android:layout_marginTop="24dp"/>
+            android:layout_marginTop="16dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
