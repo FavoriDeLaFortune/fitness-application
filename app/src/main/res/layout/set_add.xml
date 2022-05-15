@@ -6,10 +6,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.sets.SetAddFragment">
 
-    <TextView
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SetName"
+        android:hint="SetName"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +22,7 @@
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="64dp">
         <TextView
             android:layout_width="wrap_content"
@@ -31,7 +31,7 @@
         <EditText
             android:layout_width="340dp"
             android:layout_height="wrap_content"
-            android:text="Something what you should do during your training" />
+            android:hint="Something what you should do during your training" />
     </LinearLayout>
 
     <LinearLayout
@@ -41,7 +41,7 @@
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/description"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="64dp">
         <TextView
             android:layout_width="wrap_content"
@@ -50,7 +50,8 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Time of Set" />
+            android:hint="Time of Set"
+            android:inputType="number"/>
     </LinearLayout>
 
     <LinearLayout
@@ -60,7 +61,7 @@
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/time"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="64dp">
         <TextView
             android:layout_width="wrap_content"
@@ -69,7 +70,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Calories burned after set" />
+            android:hint="Calories burned after set" />
     </LinearLayout>
 
     <Button
@@ -80,6 +81,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="48dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
