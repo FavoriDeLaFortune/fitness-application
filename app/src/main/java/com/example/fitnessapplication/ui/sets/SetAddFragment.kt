@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -16,26 +17,22 @@ import com.example.fitnessapplication.databinding.SetAddBinding
 
 class SetAddFragment : Fragment(R.layout.set_add) {
     private lateinit var binding: SetAddBinding
-    private lateinit var dataModel: SetsViewModel
+    private val setsViewModel: SetsViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = SetAddBinding.bind(view)
-        dataModel = ViewModelProvider(this)[SetsViewModel::class.java]
 
         binding.apply {
             btn.setOnClickListener {
                 if (name.editText?.text.toString() != "" && description.editText?.text.toString() != ""
                     && time.editText?.text.toString() != "" && calories.editText?.text.toString() != ""
                     && isCorrectTime(time.editText?.text.toString()) && isCorrectCalories(calories.editText?.text.toString())) {
-                    dataModel.apply {
-                        nameData.value = name.editText?.text.toString()
-                        descriptionData.value = description.editText?.text.toString()
-                        timeData.value = time.editText?.text.toString()
-                        caloriesData.value = calories.editText?.text.toString()
-                        Toast.makeText(context, "Set successfully created!", Toast.LENGTH_LONG).show()
-                        findNavController().popBackStack()
-                    }
+
+                    setsViewModel.update(name.editText?.text.toString(), description.editText?.text.toString(),
+                        time.editText?.text.toString(), calories.editText?.text.toString())
+                    Toast.makeText(context, "Set successfully created!", Toast.LENGTH_LONG).show()
+                    findNavController().popBackStack()
                 } else {
                     if (name.editText?.text.toString() == "" || description.editText?.text.toString() == ""
                         || time.editText?.text.toString() == "" || calories.editText?.text.toString() == "") {
