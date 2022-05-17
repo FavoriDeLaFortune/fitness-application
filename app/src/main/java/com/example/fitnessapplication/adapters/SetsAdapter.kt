@@ -1,19 +1,31 @@
-package com.example.fitnessapplication.sets
+package com.example.fitnessapplication.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fitnessapplication.R
+import com.example.fitnessapplication.databinding.SetItemBinding
 
-class SetsAdapter(private val dataList: ArrayList<String>) : RecyclerView.Adapter<SetsAdapter.ViewHolder>() {
+class SetsAdapter() : RecyclerView.Adapter<SetsAdapter.ViewHolder>() {
+    val dataList = ArrayList<String>()
+
+    fun setData(newDataList: ArrayList<String>) {
+        dataList.clear()
+        dataList.addAll(newDataList)
+        notifyDataSetChanged()
+    }
+
+    fun insertItem(newItem: String) {
+        dataList.add(0, newItem)
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val textView: TextView = view.findViewById(R.id.textView)
+        val binding = SetItemBinding.bind(view)
 
-        fun bind(word: String) {
-            textView.text = word
+        fun bind(name: String) = with(binding){
+            nametv.text = name
         }
     }
 
