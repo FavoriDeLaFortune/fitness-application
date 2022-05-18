@@ -16,8 +16,10 @@ import com.example.fitnessapplication.adapters.SetsAdapter
 import db.SetDao
 import db.SetDataEntity
 import db.SetDatabase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SetsFragment : Fragment() {
 
@@ -51,9 +53,11 @@ class SetsFragment : Fragment() {
         GlobalScope.launch {
             val list: List<SetDataEntity>? = databaseDao?.getAll()
             val adapter = list?.let { SetsAdapter(it) }
-            val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
-            recyclerView.layoutManager = LinearLayoutManager(context)
-            recyclerView.adapter = adapter
+            withContext(Dispatchers.Main) {
+                val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
+                recyclerView.layoutManager = LinearLayoutManager(context)
+                recyclerView.adapter = adapter
+            }
         }
 
         val fabSet: View = view.findViewById(R.id.fab)
@@ -61,6 +65,7 @@ class SetsFragment : Fragment() {
             findNavController().navigate(R.id.action_navigation_sets_to_navigation_set_add)
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
