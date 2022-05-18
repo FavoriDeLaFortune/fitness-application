@@ -23,7 +23,6 @@ import kotlinx.coroutines.withContext
 
 class SetsFragment : Fragment() {
 
-    private val setsViewModel: SetsViewModel by viewModels()
     private var _binding: FragmentSetsBinding? = null
 
     private val binding get() = _binding!!
