@@ -6,5 +6,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "set_table")
 data class SetDataEntity (
     @PrimaryKey(autoGenerate = true) val id: Int,
-    val set: Set
+    val name: String,
+    val description: String,
+    val time: String,
+    val calories: String
 )

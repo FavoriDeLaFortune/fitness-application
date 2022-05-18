@@ -1,26 +1,27 @@
 package com.example.fitnessapplication.ui.sets
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.example.fitnessapplication.R
 import com.example.fitnessapplication.databinding.FragmentSetsBinding
 import com.example.fitnessapplication.adapters.SetsAdapter
-import db.Set
+import db.SetDao
+import db.SetDataEntity
+import db.SetDatabase
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class SetsFragment : Fragment() {
 
-    private val setsViewModel: SetsViewModel by activityViewModels()
+    private val setsViewModel: SetsViewModel by viewModels()
     private var _binding: FragmentSetsBinding? = null
 
     private val binding get() = _binding!!
@@ -36,21 +37,24 @@ class SetsFragment : Fragment() {
         return binding.root
     }
 
-    private val list: ArrayList<Set> = ArrayList<Set>()
-    private val adapter = SetsAdapter(list)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setsViewModel.sets.observe(activity as LifecycleOwner) {
-            Log.d("added", "yes")
-            list.add(0, it)
-            adapter.notifyDataSetChanged()
-        }
+        val database =
+            context?.let {
+                Room.databaseBuilder(it, SetDatabase::class.java, "set_table")
+                    .build()
+            }
+        val databaseDao: SetDao? = database?.setDao()
 
-        val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = adapter
+        GlobalScope.launch {
+            val list: List<SetDataEntity>? = databaseDao?.getAll()
+            val adapter = list?.let { SetsAdapter(it) }
+            val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
+            recyclerView.layoutManager = LinearLayoutManager(context)
+            recyclerView.adapter = adapter
+        }
 
         val fabSet: View = view.findViewById(R.id.fab)
         fabSet.setOnClickListener {

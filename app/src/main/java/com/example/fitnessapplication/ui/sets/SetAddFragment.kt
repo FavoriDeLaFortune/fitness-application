@@ -17,7 +17,7 @@ import com.example.fitnessapplication.databinding.SetAddBinding
 
 class SetAddFragment : Fragment(R.layout.set_add) {
     private lateinit var binding: SetAddBinding
-    private val setsViewModel: SetsViewModel by activityViewModels()
+    private val setsViewModel: SetsViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

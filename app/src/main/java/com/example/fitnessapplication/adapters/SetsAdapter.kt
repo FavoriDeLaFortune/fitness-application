@@ -6,22 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fitnessapplication.R
 import com.example.fitnessapplication.databinding.SetItemBinding
-import db.Set
-import java.util.*
-import kotlin.collections.ArrayList
+import db.SetDataEntity
 
-class SetsAdapter(private val dataList: ArrayList<Set>) : RecyclerView.Adapter<SetsAdapter.ViewHolder>() {
+class SetsAdapter(private val dataList: List<SetDataEntity>) : RecyclerView.Adapter<SetsAdapter.ViewHolder>() {
 
-
-    fun insertItem(newItem: Set) {
-        dataList.add(0, newItem)
-        notifyItemInserted(0)
-    }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = SetItemBinding.bind(view)
 
-        fun bind(name: Set) = with(binding){
+        fun bind(name: SetDataEntity) = with(binding){
             nametv.text = name.name
             timetv.text = "Time: " + name.time
             caltv.text = "Cal: " + name.calories

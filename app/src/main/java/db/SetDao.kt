@@ -1,12 +1,15 @@
 package db
 
+import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
+@Dao
 interface SetDao {
     @Query("SELECT * FROM set_table")
-    fun getAll(): ArrayList<Set>
+    suspend fun getAll(): List<SetDataEntity>
 
-    @Insert
-    fun insertAll(vararg set: Set)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(vararg set: SetDataEntity)
 }
