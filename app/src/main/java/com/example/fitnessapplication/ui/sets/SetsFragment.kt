@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,7 +42,7 @@ class SetsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setsViewModel.sets.observe(viewLifecycleOwner) {
+        setsViewModel.sets.observe(activity as LifecycleOwner) {
             Log.d("added", "yes")
             list.add(0, it)
             adapter.notifyDataSetChanged()

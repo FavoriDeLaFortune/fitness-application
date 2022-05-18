@@ -23,8 +23,8 @@ class SetsAdapter(private val dataList: ArrayList<Set>) : RecyclerView.Adapter<S
 
         fun bind(name: Set) = with(binding){
             nametv.text = name.name
-            timetv.text = name.time
-            caltv.text = name.calories
+            timetv.text = "Time: " + name.time
+            caltv.text = "Cal: " + name.calories
         }
     }
 
