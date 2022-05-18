@@ -23,6 +23,7 @@ import kotlinx.coroutines.withContext
 
 class SetsFragment : Fragment() {
 
+    private val setsViewModel: SetsViewModel by viewModels()
     private var _binding: FragmentSetsBinding? = null
 
     private val binding get() = _binding!!
@@ -42,16 +43,9 @@ class SetsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val database =
-            context?.let {
-                Room.databaseBuilder(it, SetDatabase::class.java, "set_table")
-                    .build()
-            }
-        val databaseDao: SetDao? = database?.setDao()
-
         GlobalScope.launch {
-            val list: List<SetDataEntity>? = databaseDao?.getAll()
-            val adapter = list?.let { SetsAdapter(it) }
+            val list: List<SetDataEntity> = setsViewModel.databaseDao.getAll()
+            val adapter = SetsAdapter(list)
             withContext(Dispatchers.Main) {
                 val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
                 recyclerView.layoutManager = LinearLayoutManager(context)

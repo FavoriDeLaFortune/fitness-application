@@ -74,7 +74,7 @@
             app:cv_scrollMode="paged" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/calendarRv"
+            android:id="@+id/plannedSetsRv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false" />
