@@ -15,7 +15,11 @@
         android:id="@+id/navigation_calendar"
         android:name="com.example.fitnessapplication.ui.calendar.CalendarFragment"
         android:label="@string/title_calendar"
-        tools:layout="@layout/fragment_calendar" />
+        tools:layout="@layout/fragment_calendar" >
+        <action
+            android:id="@+id/action_navigation_calendar_to_setChooseFragment"
+            app:destination="@id/setChooseFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_sets"
@@ -31,4 +35,11 @@
         android:name="com.example.fitnessapplication.ui.sets.SetAddFragment"
         android:label="SetAdd"
         tools:layout="@layout/set_add"/>
+    <fragment
+        android:id="@+id/setChooseFragment"
+        android:name="com.example.fitnessapplication.ui.calendar.SetChooseFragment"
+        android:label="SetChooseFragment"
+        tools:layout="@layout/fragment_choose_set" >
+        <argument android:name="listOfChosenSets" />
+    </fragment>
 </navigation>

@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.fitnessapplication.R
 import com.example.fitnessapplication.databinding.CalendarDayBinding
 import com.example.fitnessapplication.databinding.CalendarHeaderBinding
@@ -30,7 +32,7 @@ import java.util.*
 
 class CalendarFragment : Fragment() {
 
-    private lateinit var calendarViewModel: CalendarViewModel
+    private val calendarViewModel: CalendarViewModel by activityViewModels()
     private var _binding: FragmentCalendarBinding? = null
 
     private var selectedDate: LocalDate? = null
@@ -41,8 +43,6 @@ class CalendarFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        calendarViewModel =
-            ViewModelProvider(this)[CalendarViewModel::class.java]
 
         _binding = FragmentCalendarBinding.inflate(inflater, container, false)
         return _binding!!.root
@@ -64,7 +64,7 @@ class CalendarFragment : Fragment() {
             calendarView.scrollToMonth(currentMonth)
 
             addSetBtn.setOnClickListener {
-                CalendarDialogFragment().show(parentFragmentManager, CalendarDialogFragment.TAG)
+                findNavController().navigate(R.id.action_navigation_calendar_to_setChooseFragment)
             }
 
             class DayViewContainer(view: View) : ViewContainer(view) {

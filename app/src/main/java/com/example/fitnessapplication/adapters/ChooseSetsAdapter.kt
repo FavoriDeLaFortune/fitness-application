@@ -1,30 +1,36 @@
 package com.example.fitnessapplication.adapters
 
+import android.location.GnssAntennaInfo
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fitnessapplication.R
-import com.example.fitnessapplication.databinding.SetItemBinding
+import com.example.fitnessapplication.databinding.SetChooseItemBinding
+import com.example.fitnessapplication.ui.calendar.SetChooseFragment
 import db.SetDataEntity
 
-class PlannedSetsAdapter(private val dataList: List<SetDataEntity>) : RecyclerView.Adapter<PlannedSetsAdapter.ViewHolder>() {
+class ChooseSetsAdapter(private val dataList: List<SetDataEntity>, val listener: SetChooseFragment)
+    : RecyclerView.Adapter<ChooseSetsAdapter.ViewHolder>() {
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val binding = SetItemBinding.bind(view)
+        val binding = SetChooseItemBinding.bind(view)
 
         fun bind(name: SetDataEntity) = with(binding){
-            nametv.text = name.name
-            timetv.text = "Time: " + name.time
-            caltv.text = "Cal: " + name.calories
+            chooseNametv.text = name.name
+            chooseTimetv.text = "Time: " + name.time
+            chooseCaltv.text = "Cal: " + name.calories
+            if (checkbox.isChecked) {
+
+            }
         }
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.set_item, viewGroup, false)
+            .inflate(R.layout.set_choose_item, viewGroup, false)
 
         return ViewHolder(view)
     }
@@ -35,6 +41,10 @@ class PlannedSetsAdapter(private val dataList: List<SetDataEntity>) : RecyclerVi
 
     override fun getItemCount(): Int {
         return dataList.size
+    }
+
+    interface Listener {
+        fun Checked(set: SetDataEntity)
     }
 
 }
