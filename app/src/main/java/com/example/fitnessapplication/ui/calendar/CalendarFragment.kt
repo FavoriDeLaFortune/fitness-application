@@ -63,6 +63,10 @@ class CalendarFragment : Fragment() {
             calendarView.setup(firstMonth, lastMonth, daysOfWeek.first())
             calendarView.scrollToMonth(currentMonth)
 
+            addSetBtn.setOnClickListener {
+                CalendarDialogFragment().show(parentFragmentManager, CalendarDialogFragment.TAG)
+            }
+
             class DayViewContainer(view: View) : ViewContainer(view) {
                 lateinit var day: CalendarDay
                 val binding = CalendarDayBinding.bind(view)
@@ -119,26 +123,26 @@ class CalendarFragment : Fragment() {
                 }
             }
 
-            binding.calendarView.monthScrollListener = { month ->
+            calendarView.monthScrollListener = { month ->
                 val title = "${monthTitleFormatter.format(month.yearMonth)} ${month.yearMonth.year}"
-                binding.monthYearText.text = title
+                monthYearText.text = title
 
                 selectedDate?.let {
                     // Clear selection if we scroll to a new month.
                     selectedDate = null
-                    binding.calendarView.notifyDateChanged(it)
+                    calendarView.notifyDateChanged(it)
                 }
             }
 
-            binding.nextMonthImage.setOnClickListener {
-                binding.calendarView.findFirstVisibleMonth()?.let {
-                    binding.calendarView.smoothScrollToMonth(it.yearMonth.next)
+            nextMonthImage.setOnClickListener {
+                calendarView.findFirstVisibleMonth()?.let {
+                    calendarView.smoothScrollToMonth(it.yearMonth.next)
                 }
             }
 
-            binding.previousMonthImage.setOnClickListener {
-                binding.calendarView.findFirstVisibleMonth()?.let {
-                    binding.calendarView.smoothScrollToMonth(it.yearMonth.previous)
+            previousMonthImage.setOnClickListener {
+                calendarView.findFirstVisibleMonth()?.let {
+                    calendarView.smoothScrollToMonth(it.yearMonth.previous)
                 }
             }
         }
