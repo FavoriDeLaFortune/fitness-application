@@ -56,8 +56,8 @@ class CalendarFragment : Fragment() {
 
 
         val currentMonth = YearMonth.now()
-        val firstMonth = currentMonth.minusMonths(10)
-        val lastMonth = currentMonth.plusMonths(10)
+        val firstMonth = currentMonth.minusMonths(3)
+        val lastMonth = currentMonth.plusMonths(3)
         val daysOfWeek = daysOfWeekFromLocale()
         binding.apply {
             calendarView.setup(firstMonth, lastMonth, daysOfWeek.first())

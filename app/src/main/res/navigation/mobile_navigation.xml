@@ -33,12 +33,12 @@
     <fragment
         android:id="@+id/navigation_set_add"
         android:name="com.example.fitnessapplication.ui.sets.SetAddFragment"
-        android:label="SetAdd"
+        android:label="Add new set"
         tools:layout="@layout/set_add"/>
     <fragment
         android:id="@+id/setChooseFragment"
         android:name="com.example.fitnessapplication.ui.calendar.SetChooseFragment"
-        android:label="SetChooseFragment"
+        android:label="Choose set"
         tools:layout="@layout/fragment_choose_set" >
         <argument android:name="listOfChosenSets" />
     </fragment>
