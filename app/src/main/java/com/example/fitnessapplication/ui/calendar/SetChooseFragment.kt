@@ -1,5 +1,8 @@
 package com.example.fitnessapplication.ui.calendar
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -29,7 +32,7 @@ class SetChooseFragment : Fragment() {
     private lateinit var binding: FragmentChooseSetBinding
 
 
-    override fun onCreateView(
+    override  fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,9 +55,16 @@ class SetChooseFragment : Fragment() {
                 recyclerView.layoutManager = LinearLayoutManager(context)
                 recyclerView.adapter = adapter
                 adapter.setOnItemListener(object : ChooseSetsAdapter.Listener{
+                    @SuppressLint("CommitPrefEdits")
                     override fun onItemClick(position: Int) {
                         Log.d("item", "$position")
                         val clickedItem = list[position]
+                        val pref: SharedPreferences? =
+                            context?.getSharedPreferences("key_value", Context.MODE_PRIVATE)
+                        val editor: SharedPreferences.Editor? = pref?.edit()
+                        editor?.putString("NAME_KEY", clickedItem.name)
+                        editor?.putString("TIME_KEY", clickedItem.time)
+                        editor?.apply()
                         Toast.makeText(context, "You chose ${clickedItem.name}", Toast.LENGTH_LONG).show()
                         findNavController().popBackStack()
                     }

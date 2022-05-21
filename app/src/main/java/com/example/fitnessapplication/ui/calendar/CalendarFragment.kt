@@ -1,6 +1,9 @@
 package com.example.fitnessapplication.ui.calendar
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +14,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.fitnessapplication.R
+import com.example.fitnessapplication.adapters.CalendarSetsAdapter
+import com.example.fitnessapplication.adapters.SetsAdapter
 import com.example.fitnessapplication.databinding.CalendarDayBinding
 import com.example.fitnessapplication.databinding.CalendarHeaderBinding
 import com.example.fitnessapplication.databinding.FragmentCalendarBinding
@@ -23,6 +30,12 @@ import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import com.kizitonwose.calendarview.utils.next
 import com.kizitonwose.calendarview.utils.previous
+import db.CalendarSetDataEntity
+import db.SetDataEntity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
@@ -50,6 +63,9 @@ class CalendarFragment : Fragment() {
 
     private lateinit var binding: FragmentCalendarBinding
 
+    lateinit var adapter: CalendarSetsAdapter
+    lateinit var list: List<CalendarSetDataEntity>
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCalendarBinding.bind(view)
@@ -65,6 +81,29 @@ class CalendarFragment : Fragment() {
 
             addSetBtn.setOnClickListener {
                 findNavController().navigate(R.id.action_navigation_calendar_to_setChooseFragment)
+                val pref: SharedPreferences? =
+                    context?.getSharedPreferences("key_value", Context.MODE_PRIVATE)
+                val name = pref?.getString("NAME_KEY", null)
+                val time = pref?.getString("TIME_KEY", null)
+                val editor: SharedPreferences.Editor? = pref?.edit()
+                editor?.clear()
+                editor?.apply()
+                if (name != null && time != null) {
+                    calendarViewModel.insert(name, time)
+                    Log.d("recycler123", "database inserted")
+                }
+            }
+
+            GlobalScope.launch(Dispatchers.IO) {
+                list = calendarViewModel.get()
+                Log.d("recycler123", "list size is ${list.size}")
+                withContext(Dispatchers.Main) {
+                    adapter = CalendarSetsAdapter(list)
+                    val recyclerView: RecyclerView = view.findViewById(R.id.plannedSetsRv)
+                    recyclerView.layoutManager = LinearLayoutManager(context)
+                    recyclerView.adapter = adapter
+                    Log.d("recycler123", "adapter installed")
+                }
             }
 
             class DayViewContainer(view: View) : ViewContainer(view) {
