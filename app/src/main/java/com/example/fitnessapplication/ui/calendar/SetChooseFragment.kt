@@ -59,12 +59,9 @@ class SetChooseFragment : Fragment() {
                     override fun onItemClick(position: Int) {
                         Log.d("item", "$position")
                         val clickedItem = list[position]
-                        val pref: SharedPreferences? =
-                            context?.getSharedPreferences("key_value", Context.MODE_PRIVATE)
-                        val editor: SharedPreferences.Editor? = pref?.edit()
-                        editor?.putString("NAME_KEY", clickedItem.name)
-                        editor?.putString("TIME_KEY", clickedItem.time)
-                        editor?.apply()
+                        GlobalScope.launch {
+                            calendarViewModel.insert(clickedItem.name, clickedItem.time)
+                        }
                         Toast.makeText(context, "You chose ${clickedItem.name}", Toast.LENGTH_LONG).show()
                         findNavController().popBackStack()
                     }

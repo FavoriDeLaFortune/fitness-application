@@ -3,13 +3,16 @@ package com.example.fitnessapplication.ui.calendar
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.TextView
 import androidx.core.view.children
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
@@ -28,6 +31,7 @@ import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
+import com.kizitonwose.calendarview.utils.Size
 import com.kizitonwose.calendarview.utils.next
 import com.kizitonwose.calendarview.utils.previous
 import db.CalendarSetDataEntity
@@ -75,23 +79,18 @@ class CalendarFragment : Fragment() {
         val firstMonth = currentMonth.minusMonths(3)
         val lastMonth = currentMonth.plusMonths(3)
         val daysOfWeek = daysOfWeekFromLocale()
-        binding.apply {
-            calendarView.setup(firstMonth, lastMonth, daysOfWeek.first())
-            calendarView.scrollToMonth(currentMonth)
+        val dm = DisplayMetrics()
+        val wm = requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        wm.defaultDisplay.getMetrics(dm)
 
-            addSetBtn.setOnClickListener {
-                findNavController().navigate(R.id.action_navigation_calendar_to_setChooseFragment)
-                val pref: SharedPreferences? =
-                    context?.getSharedPreferences("key_value", Context.MODE_PRIVATE)
-                val name = pref?.getString("NAME_KEY", null)
-                val time = pref?.getString("TIME_KEY", null)
-                val editor: SharedPreferences.Editor? = pref?.edit()
-                editor?.clear()
-                editor?.apply()
-                if (name != null && time != null) {
-                    calendarViewModel.insert(name, time)
-                    Log.d("recycler123", "database inserted")
-                }
+        binding.apply {
+
+            calendarView.apply {
+                setup(firstMonth, lastMonth, daysOfWeek.first())
+                scrollToMonth(currentMonth)
+                val dayWidth = dm.widthPixels / 7
+                val dayHeight = (dayWidth * 0.80).toInt() // We don't want a square calendar.
+                daySize = Size(dayWidth, dayHeight)
             }
 
             GlobalScope.launch(Dispatchers.IO) {
@@ -104,6 +103,10 @@ class CalendarFragment : Fragment() {
                     recyclerView.adapter = adapter
                     Log.d("recycler123", "adapter installed")
                 }
+            }
+
+            addSetBtn.setOnClickListener {
+                findNavController().navigate(R.id.action_navigation_calendar_to_setChooseFragment)
             }
 
             class DayViewContainer(view: View) : ViewContainer(view) {
