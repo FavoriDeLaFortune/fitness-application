@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="green_200">#1E6F5C</color>
+    <color name="green_500">#289672</color>
+    <color name="green_700">#29BB89</color>
+    <color name="green">#3C9576</color>
+    <color name="yellow">#E6DD3B</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -7,6 +12,6 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="grey">#373737</color>
-    <color name="grey_light">#676767</color>
+    <color name="grey_light">#A09F9F</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

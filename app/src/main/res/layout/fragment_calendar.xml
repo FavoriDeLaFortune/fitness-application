@@ -46,7 +46,8 @@
                 app:layout_constraintEnd_toStartOf="@id/nextMonthImage"
                 app:layout_constraintStart_toEndOf="@id/previousMonthImage"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="April 2022" />
+                tools:text="April 2022"
+                android:textColor="@color/white"/>
 
             <ImageView
                 android:id="@+id/nextMonthImage"

@@ -18,11 +18,11 @@ class SetsAdapter(private val dataList: List<SetDataEntity>) : RecyclerView.Adap
             nametv.text = name.name
             timetv.text = "Time: " + name.time
             caltv.text = "Cal: " + name.calories
+            descriptionTv.text = name.description
         }
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.set_item, viewGroup, false)
 
