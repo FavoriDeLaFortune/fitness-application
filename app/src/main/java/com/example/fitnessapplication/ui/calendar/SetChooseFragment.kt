@@ -64,9 +64,13 @@ class SetChooseFragment : Fragment() {
                         val clickedItem = list[position]
                         val timePicker: TimePicker = view.findViewById(R.id.time_picker)
                         val btn: Button = view.findViewById(R.id.time_picker_btn)
+                        timePicker.alpha = 0f
                         timePicker.visibility = View.VISIBLE
+                        timePicker.animate().alpha(1.0f)
                         timePicker.setIs24HourView(true)
+                        btn.alpha = 0f
                         btn.visibility = View.VISIBLE
+                        btn.animate().alpha(1.0f)
                         timePicker.setOnTimeChangedListener { _, hour, minute ->
                             btn.setOnClickListener {
                                 val pref: SharedPreferences? =

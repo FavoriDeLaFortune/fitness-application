@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.statistic.StatisticFragment">
+    tools:context=".ui.statistic.StatisticFragment"
+    android:background="@drawable/statistic_gradient_background">
 
     <TextView
         android:id="@+id/cnt_sets_tv"

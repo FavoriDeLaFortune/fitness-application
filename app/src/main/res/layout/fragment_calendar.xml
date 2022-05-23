@@ -92,11 +92,11 @@
 
         </LinearLayout>
 
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addSetBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ADD SET"
+        android:src="@drawable/ic_baseline_event_24"
         android:layout_gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

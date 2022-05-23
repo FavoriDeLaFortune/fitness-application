@@ -11,11 +11,14 @@
         <entry key="..\:/pycharm/FitnessApplication/app/src/main/res/drawable-anydpi/ic_сhevron_left.xml" value="0.2255" />
         <entry key="..\:/pycharm/FitnessApplication/app/src/main/res/drawable-mdpi/calendar_selected_bg.xml" value="0.121" />
         <entry key="..\:/pycharm/FitnessApplication/app/src/main/res/drawable-xhdpi/selected_day.xml" value="0.1" />
+        <entry key="..\:/pycharm/FitnessApplication/app/src/main/res/drawable/calendar_item_background.xml" value="0.348" />
         <entry key="..\:/pycharm/FitnessApplication/app/src/main/res/drawable/gradient_background.xml" value="0.1925" />
         <entry key="..\:/pycharm/FitnessApplication/app/src/main/res/drawable/ic_add_black_background.xml" value="0.19270833333333334" />
         <entry key="..\:/pycharm/FitnessApplication/app/src/main/res/drawable/ic_baseline_statistic_24.xml" value="0.1935" />
         <entry key="..\:/pycharm/FitnessApplication/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1935" />
         <entry key="..\:/pycharm/FitnessApplication/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.1935" />
+        <entry key="..\:/pycharm/FitnessApplication/app/src/main/res/drawable/statistic_gradient_background.xml" value="0.1495" />
+        <entry key="..\:/pycharm/FitnessApplication/app/src/main/res/drawable/timepeeker_background.xml" value="0.1495" />
         <entry key="..\:/pycharm/FitnessApplication/app/src/main/res/layout/activity_main.xml" value="0.18" />
         <entry key="..\:/pycharm/FitnessApplication/app/src/main/res/layout/calendar_day.xml" value="0.2182741116751269" />
         <entry key="..\:/pycharm/FitnessApplication/app/src/main/res/layout/calendar_day_legend.xml" value="0.17274569402228976" />

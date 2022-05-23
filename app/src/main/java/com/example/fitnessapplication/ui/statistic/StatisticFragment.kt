@@ -59,9 +59,15 @@ class StatisticFragment : Fragment() {
                 avgCal /= list.size
                 val sec = avgTime.hour * 60 * 60 + avgTime.minute * 60 + avgTime.second
                 avgTime = LocalTime.of(0, (sec / 60) / list.size, (sec % 60) / list.size)
+                val str: String
+                if ((sec % 60) / list.size == 0) {
+                    str = ":00"
+                } else {
+                    str = ""
+                }
                 withContext(Dispatchers.Main) {
                     binding.avgCalTv.text = avgCal.toString()
-                    binding.avgTimeTv.text = avgTime.toString()
+                    binding.avgTimeTv.text = avgTime.toString() + "${str}"
                     binding.quoteTv.text = quotesList[rand]
                     binding.authorTv.text = authorsList[rand]
                 }
