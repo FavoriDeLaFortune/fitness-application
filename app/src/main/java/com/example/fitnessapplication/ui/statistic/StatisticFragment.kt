@@ -48,22 +48,24 @@ class StatisticFragment : Fragment() {
             withContext(Dispatchers.Default) {
                 var avgTime: LocalTime = LocalTime.parse("00:00")
                 var avgCal = 0
-                for (i in list) {
-                    avgCal += (setsViewModel.databaseDao.getByName(i.name))[0].calories.toInt()
-                    avgTime = avgTime.plusMinutes(setsViewModel.databaseDao.getByName(i.name)[0].time
-                        .subSequence(0, 2).toString().toLong()).plusSeconds(setsViewModel.databaseDao
-                        .getByName(i.name)[0].time.subSequence(3, 5).toString().toLong())
-                    Log.d("time", "${setsViewModel.databaseDao.getByName(i.name)[0].time
-                        .subSequence(0, 2).toString().toLong()}")
-                }
-                avgCal /= list.size
-                val sec = avgTime.hour * 60 * 60 + avgTime.minute * 60 + avgTime.second
-                avgTime = LocalTime.of(0, (sec / 60) / list.size, (sec % 60) / list.size)
-                val str: String
-                if ((sec % 60) / list.size == 0) {
-                    str = ":00"
-                } else {
-                    str = ""
+                var str: String = ""
+                if (list.isNotEmpty()) {
+                    for (i in list) {
+                        avgCal += (setsViewModel.databaseDao.getByName(i.name))[0].calories.toInt()
+                        avgTime = avgTime.plusMinutes(setsViewModel.databaseDao.getByName(i.name)[0].time
+                            .subSequence(0, 2).toString().toLong()).plusSeconds(setsViewModel.databaseDao
+                            .getByName(i.name)[0].time.subSequence(3, 5).toString().toLong())
+                        Log.d("time", "${setsViewModel.databaseDao.getByName(i.name)[0].time
+                            .subSequence(0, 2).toString().toLong()}")
+                    }
+                    avgCal /= list.size
+                    val sec = avgTime.hour * 60 * 60 + avgTime.minute * 60 + avgTime.second
+                    avgTime = LocalTime.of(0, (sec / 60) / list.size, (sec % 60) / list.size)
+                    if ((sec % 60) / list.size == 0) {
+                        str = ":00"
+                    } else {
+                        str = ""
+                    }
                 }
                 withContext(Dispatchers.Main) {
                     binding.avgCalTv.text = avgCal.toString()

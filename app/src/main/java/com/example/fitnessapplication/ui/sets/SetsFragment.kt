@@ -47,6 +47,11 @@ class SetsFragment : Fragment() {
             val list: List<SetDataEntity> = setsViewModel.databaseDao.getAll()
             val adapter = SetsAdapter(list)
             withContext(Dispatchers.Main) {
+                if (list.isEmpty()) {
+                    binding.nosetsTv.visibility = View.VISIBLE
+                } else {
+                    binding.nosetsTv.visibility = View.GONE
+                }
                 val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
                 recyclerView.layoutManager = LinearLayoutManager(context)
                 recyclerView.adapter = adapter
