@@ -26,6 +26,7 @@ import com.example.fitnessapplication.adapters.SetsAdapter
 import com.example.fitnessapplication.databinding.CalendarDayBinding
 import com.example.fitnessapplication.databinding.CalendarHeaderBinding
 import com.example.fitnessapplication.databinding.FragmentCalendarBinding
+import com.example.fitnessapplication.ui.sets.SetsViewModel
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.CalendarMonth
 import com.kizitonwose.calendarview.model.DayOwner
@@ -51,6 +52,7 @@ import java.util.*
 class CalendarFragment : Fragment() {
 
     private val calendarViewModel: CalendarViewModel by activityViewModels()
+    private val setsViewModel: SetsViewModel by activityViewModels()
     private var _binding: FragmentCalendarBinding? = null
 
     private var selectedDate: LocalDate? = null
@@ -94,15 +96,24 @@ class CalendarFragment : Fragment() {
             }
 
             addSetBtn.setOnClickListener {
-                if (selectedDate != null) {
-                    val pref: SharedPreferences? =
-                        context?.getSharedPreferences("KEY_VALUE", Context.MODE_PRIVATE)
-                    val editor: SharedPreferences.Editor? = pref?.edit()
-                    editor?.putString("DATE_KEY", selectedDate.toString())
-                    editor?.apply()
-                    findNavController().navigate(R.id.action_navigation_calendar_to_setChooseFragment)
-                } else {
-                    Toast.makeText(context, "You should select a day", Toast.LENGTH_LONG).show()
+                GlobalScope.launch(Dispatchers.IO) {
+                    val list = setsViewModel.databaseDao.getAll()
+                    withContext(Dispatchers.Main) {
+                        if (selectedDate != null && list.isNotEmpty()) {
+                            val pref: SharedPreferences? =
+                                context?.getSharedPreferences("KEY_VALUE", Context.MODE_PRIVATE)
+                            val editor: SharedPreferences.Editor? = pref?.edit()
+                            editor?.putString("DATE_KEY", selectedDate.toString())
+                            editor?.apply()
+                            findNavController().navigate(R.id.action_navigation_calendar_to_setChooseFragment)
+                        } else {
+                            if (selectedDate == null) {
+                                Toast.makeText(context, "You should select a day", Toast.LENGTH_LONG).show()
+                            } else {
+                                Toast.makeText(context, "You should have at least one set", Toast.LENGTH_LONG).show()
+                            }
+                        }
+                    }
                 }
             }
 
