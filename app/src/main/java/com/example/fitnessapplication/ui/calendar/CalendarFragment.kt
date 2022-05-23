@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.children
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
@@ -106,7 +107,16 @@ class CalendarFragment : Fragment() {
             }
 
             addSetBtn.setOnClickListener {
-                findNavController().navigate(R.id.action_navigation_calendar_to_setChooseFragment)
+                if (selectedDate != null) {
+                    val pref: SharedPreferences? =
+                        context?.getSharedPreferences("KEY_VALUE", Context.MODE_PRIVATE)
+                    val editor: SharedPreferences.Editor? = pref?.edit()
+                    editor?.putString("DATE_KEY", selectedDate.toString())
+                    editor?.apply()
+                    findNavController().navigate(R.id.action_navigation_calendar_to_setChooseFragment)
+                } else {
+                    Toast.makeText(context, "You should select a day", Toast.LENGTH_LONG).show()
+                }
             }
 
             class DayViewContainer(view: View) : ViewContainer(view) {

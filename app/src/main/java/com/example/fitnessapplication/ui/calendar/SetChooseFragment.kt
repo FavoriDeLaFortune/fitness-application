@@ -27,6 +27,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.LocalTime
 
 class SetChooseFragment : Fragment() {
 
@@ -69,9 +70,37 @@ class SetChooseFragment : Fragment() {
                         btn.visibility = View.VISIBLE
                         timePicker.setOnTimeChangedListener { _, hour, minute ->
                             btn.setOnClickListener {
-                                GlobalScope.launch {
-                                    calendarViewModel.insert(clickedItem.name, clickedItem.time)
+                                val pref: SharedPreferences? =
+                                    context?.getSharedPreferences("KEY_VALUE", Context.MODE_PRIVATE)
+                                val editor: SharedPreferences.Editor? = pref?.edit()
+                                val date: String? = pref?.getString("DATE_KEY", "")
+                                val strMinute: String = if (minute < 10) {
+                                    "0$minute"
+                                } else {
+                                    minute.toString()
                                 }
+                                val strHour: String = if (hour < 10) {
+                                    "0$hour"
+                                } else {
+                                    hour.toString()
+                                }
+                                editor?.clear()
+                                editor?.apply()
+                                GlobalScope.launch {
+                                    calendarViewModel.insert(clickedItem.name, (LocalTime
+                                        .parse("$strHour:$strMinute").toString()
+                                            + ":00 - " + (LocalTime.parse("$strHour:$strMinute")
+                                        .plusMinutes((clickedItem.time[0].toString() +
+                                                clickedItem.time[1].toString()).toLong())
+                                        .plusSeconds((clickedItem.time[3].toString() +
+                                                clickedItem.time[4].toString()).toLong()).toString())))
+                                }
+                                Log.d("time", (LocalTime.parse("$strHour:$strMinute:00").toString()
+                                        + " - " + (LocalTime.parse("$strHour:$strMinute:00")
+                                    .plusMinutes((clickedItem.time[0].toString() +
+                                            clickedItem.time[1].toString()).toLong())
+                                    .plusSeconds((clickedItem.time[3].toString() +
+                                            clickedItem.time[4].toString()).toLong()).toString())))
                                 Toast.makeText(context, "You chose ${clickedItem.name}", Toast.LENGTH_LONG).show()
                                 findNavController().popBackStack()
                             }
