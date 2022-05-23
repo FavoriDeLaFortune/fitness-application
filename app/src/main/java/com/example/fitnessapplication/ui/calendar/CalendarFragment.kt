@@ -69,7 +69,6 @@ class CalendarFragment : Fragment() {
     private lateinit var binding: FragmentCalendarBinding
 
     lateinit var adapter: CalendarSetsAdapter
-    lateinit var list: List<CalendarSetDataEntity>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -94,18 +93,6 @@ class CalendarFragment : Fragment() {
                 daySize = Size(dayWidth, dayHeight)
             }
 
-            GlobalScope.launch(Dispatchers.IO) {
-                list = calendarViewModel.get()
-                Log.d("recycler123", "list size is ${list.size}")
-                withContext(Dispatchers.Main) {
-                    adapter = CalendarSetsAdapter(list)
-                    val recyclerView: RecyclerView = view.findViewById(R.id.plannedSetsRv)
-                    recyclerView.layoutManager = LinearLayoutManager(context)
-                    recyclerView.adapter = adapter
-                    Log.d("recycler123", "adapter installed")
-                }
-            }
-
             addSetBtn.setOnClickListener {
                 if (selectedDate != null) {
                     val pref: SharedPreferences? =
@@ -119,6 +106,8 @@ class CalendarFragment : Fragment() {
                 }
             }
 
+            val recyclerView: RecyclerView = view.findViewById(R.id.plannedSetsRv)
+
             class DayViewContainer(view: View) : ViewContainer(view) {
                 lateinit var day: CalendarDay
                 val binding = CalendarDayBinding.bind(view)
@@ -131,6 +120,15 @@ class CalendarFragment : Fragment() {
                                 val binding = this@CalendarFragment.binding
                                 binding.calendarView.notifyDateChanged(day.date)
                                 oldDate?.let { binding.calendarView.notifyDateChanged(it) }
+                                GlobalScope.launch(Dispatchers.IO) {
+                                    val daylist = calendarViewModel.getByDate(day.date.toString())
+                                    adapter = CalendarSetsAdapter(daylist)
+                                    adapter.notifyDataSetChanged()
+                                    withContext(Dispatchers.Main) {
+                                        recyclerView.layoutManager = LinearLayoutManager(context)
+                                        recyclerView.adapter = adapter
+                                    }
+                                }
                             }
                         }
                     }
@@ -142,12 +140,21 @@ class CalendarFragment : Fragment() {
                     container.day = day
                     val textView = container.binding.dayText
                     val layout = container.binding.dayLayout
+                    val dayCheck = container.binding.dayCheck
                     textView.text = day.date.dayOfMonth.toString()
 
                     if (day.owner == DayOwner.THIS_MONTH) {
                         textView.setTextColorRes(R.color.grey)
                         layout.setBackgroundResource(if (selectedDate == day.date) R.drawable.calendar_selected_bg else 0)
 
+                        GlobalScope.launch(Dispatchers.IO){
+                            val daylist = calendarViewModel.getByDate(day.date.toString())
+                            withContext(Dispatchers.Main) {
+                                if (daylist.isNotEmpty()) {
+                                    dayCheck.setBackgroundResource(R.color.grey)
+                                }
+                            }
+                        }
                     } else {
                         textView.setTextColorRes(R.color.grey_light)
                         layout.background = null

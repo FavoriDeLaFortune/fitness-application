@@ -61,7 +61,6 @@ class SetChooseFragment : Fragment() {
                 adapter.setOnItemListener(object : ChooseSetsAdapter.Listener{
                     @SuppressLint("CommitPrefEdits")
                     override fun onItemClick(position: Int) {
-                        Log.d("item", "$position")
                         val clickedItem = list[position]
                         val timePicker: TimePicker = view.findViewById(R.id.time_picker)
                         val btn: Button = view.findViewById(R.id.time_picker_btn)
@@ -87,20 +86,20 @@ class SetChooseFragment : Fragment() {
                                 editor?.clear()
                                 editor?.apply()
                                 GlobalScope.launch {
-                                    calendarViewModel.insert(clickedItem.name, (LocalTime
-                                        .parse("$strHour:$strMinute").toString()
-                                            + ":00 - " + (LocalTime.parse("$strHour:$strMinute")
-                                        .plusMinutes((clickedItem.time[0].toString() +
-                                                clickedItem.time[1].toString()).toLong())
-                                        .plusSeconds((clickedItem.time[3].toString() +
-                                                clickedItem.time[4].toString()).toLong()).toString())))
+                                    if (date != null) {
+                                        var endTime = (LocalTime.parse("$strHour:$strMinute")
+                                            .plusMinutes((clickedItem.time[0].toString() +
+                                                    clickedItem.time[1].toString()).toLong())
+                                            .plusSeconds((clickedItem.time[3].toString() +
+                                                    clickedItem.time[4].toString()).toLong()).toString())
+                                        if (endTime.length < 7) {
+                                            endTime += ":00"
+                                        }
+                                        calendarViewModel.insert(date, clickedItem.name, (LocalTime
+                                            .parse("$strHour:$strMinute").toString()
+                                                + ":00 - " + endTime))
+                                    }
                                 }
-                                Log.d("time", (LocalTime.parse("$strHour:$strMinute:00").toString()
-                                        + " - " + (LocalTime.parse("$strHour:$strMinute:00")
-                                    .plusMinutes((clickedItem.time[0].toString() +
-                                            clickedItem.time[1].toString()).toLong())
-                                    .plusSeconds((clickedItem.time[3].toString() +
-                                            clickedItem.time[4].toString()).toLong()).toString())))
                                 Toast.makeText(context, "You chose ${clickedItem.name}", Toast.LENGTH_LONG).show()
                                 findNavController().popBackStack()
                             }

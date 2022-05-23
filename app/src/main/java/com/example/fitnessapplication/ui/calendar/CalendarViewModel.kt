@@ -20,14 +20,17 @@ class CalendarViewModel(application: Application) : AndroidViewModel(application
             .build()
     val databaseDao: CalendarSetDao = database.calendarSetDao()
 
-    fun insert(name: String, time: String) {
-        Log.d("database", "added")
+    fun insert(date: String, name: String, time: String) {
         viewModelScope.launch {
-            databaseDao.insertAll(CalendarSetDataEntity(0, "00:00", name, time))
+            databaseDao.insertAll(CalendarSetDataEntity(0, date, name, time))
         }
     }
 
     suspend fun get(): List<CalendarSetDataEntity> {
         return databaseDao.getAll()
+    }
+
+    suspend fun getByDate(date: String): List<CalendarSetDataEntity> {
+        return databaseDao.getAllByDate(date)
     }
 }
