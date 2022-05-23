@@ -4,4 +4,49 @@
     <string name="title_calendar">Calendar</string>
     <string name="title_sets">Sets</string>
 
+    <string-array name="quotes">
+        <item>‘The last three or four reps is what makes the muscle grow. This area of pain divides a champion from someone who is not a champion.’</item>
+        <item>‘Success usually comes to those who are too busy to be looking for it.’</item>
+        <item>‘All progress takes place outside the comfort zone.’</item>
+        <item>‘If you think lifting is dangerous, try being weak. Being weak is dangerous.’</item>
+        <item>‘The only place where success comes before work is in the dictionary.’</item>
+        <item>‘The clock is ticking. Are you becoming the person you want to be?’</item>
+        <item>‘Whether you think you can, or you think you can’t, you’re right.’</item>
+        <item> ‘The successful warrior is the average man, with laser-like focus.’</item>
+        <item>‘You must expect great things of yourself before you can do them.’</item>
+        <item>‘Action is the foundational key to all success.’</item>
+        <item>‘Things may come to those who wait, but only the things left by those who hustle.’</item>
+        <item>‘Well done is better than well said.’</item>
+        <item>‘All our dreams can come true if we have the courage to pursue them.’</item>
+        <item>‘A champion is someone who gets up when they can’t.’</item>
+        <item> ‘What hurts today makes you stronger tomorrow.’</item>
+        <item>‘If something stands between you and your success, move it. Never be denied.’</item>
+        <item>‘If you want something you’ve never had, you must be willing to do something you’ve never done.’</item>
+        <item>‘You have to think it before you can do it. The mind is what makes it all possible.’</item>
+        <item>‘Things work out best for those who make the best of how things work out.’</item>
+        <item>‘Success is walking from failure to failure with no loss of enthusiasm.’</item>
+    </string-array>
+
+    <string-array name="authors">
+        <item>Arnold Schwarzenegger, seven-time Mr. Olympia</item>
+        <item>Henry David Thoreau, poet and philosopher</item>
+        <item>Michael John Bobak, digital artist</item>
+        <item>Bret Contreras, sports scientist</item>
+        <item>Vidal Sassoon, hairstylist and businessman</item>
+        <item>Greg Plitt, fitness model</item>
+        <item>Henry Ford, industrialist</item>
+        <item>Bruce Lee, actor and martial artist</item>
+        <item>Michael Jordan, basketball player</item>
+        <item>Pablo Picasso, visual artist</item>
+        <item>Abraham Lincoln, 16th President of the United States</item>
+        <item>Benjamin Franklin, American Founding Father and inventor</item>
+        <item>Walt Disney, film producer and entrepreneur</item>
+        <item>Jack Dempsey, professional boxer</item>
+        <item>Jay Cutler, pro bodybuilder and four-time Mr. Olympia</item>
+        <item>Dwayne ‘The Rock’ Johnson, actor and pro wrestler</item>
+        <item>Thomas Jefferson, Third President of the United States</item>
+        <item>Kai Greene, pro bodybuilder and artist</item>
+        <item>John Wooden, basketball player and coach</item>
+        <item>Winston Churchill, British statesman and Prime Minister of the United Kingdom</item>
+    </string-array>
 </resources>
